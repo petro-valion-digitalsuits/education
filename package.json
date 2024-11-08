@@ -8,7 +8,7 @@
   "license": "MIT",
   "sasslintConfig": ".sasslintrc",
   "scripts": {
-    "watch": "concurrently \"webpack --config webpack.dev.js --watch\" \"shopify theme dev --store stan-dev-store \"",
+    "watch": "concurrently \"webpack --config webpack.dev.js --watch\" \"shopify theme dev --store petro-develop \"",
     "deploy": "webpack --config webpack.prod.js && shopify theme push --store stan-dev-store"
   },
   "browserslist": [
