@@ -1,54 +1,59 @@
 <!doctype html>
 <html lang="{{ shop.locale }}">
-  <head>
-    <meta charset="utf-8">
-    <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <meta content="width=device-width,initial-scale=1,maximum-scale=1.0, user-scalable=0" name="viewport">
-    <meta name="theme-color" content="{{ settings.color_accent }}">
-    <link rel="canonical" href="{{ canonical_url }}">
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width,initial-scale=1,maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="theme-color" content="{{ settings.color_accent }}">
 
-    {%- if settings.favicon != blank -%}
-      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
-    {%- endif -%}
+  <link rel="dns-prefetch" href="//cdn.shopify.com">
+  <link rel="preconnect" href="//cdn.shopify.com">
 
-    {%- capture seo_title -%}
-      {{ page_title }}
-      {%- if current_tags -%}
-        {%- assign meta_tags = current_tags | join: ', ' -%}
-        &ndash;
-        {{ 'general.meta.tags' | t: tags: meta_tags -}}
-      {%- endif -%}
-      {%- if current_page != 1 -%}
-        &ndash;
-        {{ 'general.meta.page' | t: page: current_page }}
-      {%- endif -%}
-      {%- assign escaped_page_title = page_title | escape -%}
-      {%- unless escaped_page_title contains shop.name -%}
-        &ndash;
-        {{ shop.name }}
-      {%- endunless -%}
-    {%- endcapture -%}
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="stylesheet" href="{{- 'swiper-bundle.min.css' | asset_url -}}" />
 
-    <title>{{ seo_title | strip }}</title>
+  {%- if settings.favicon != blank -%}
+    <link
+      rel="shortcut icon"
+      href="{{ settings.favicon | img_url: '32x32' }}"
+      type="image/png">
+  {%- endif -%}
 
-    {%- if page_description -%}
-      <meta name="description" content="{{ page_description | escape }}">
-    {%- endif -%}
+  <title>
+    {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash;
+      {{ 'general.meta.tags' | t: tags: meta_tags
+      }}{% endif %}{% if current_page != 1 %}
+      &ndash; {{ 'general.meta.page' | t: page: current_page
+      }}{% endif %}{% unless page_title contains shop.name %}
+      &ndash; {{ shop.name }}{% endunless %}
+  </title>
 
-    {% render 'css-fonts' %}
-    {% render 'social-meta-tags' %}
-    {% render 'css-variables' %}
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
 
-    <link rel="stylesheet" href="{{ 'swiper-bundle.min.css' |  asset_url }}"/>
-    <link rel="stylesheet" href="{{ 'common.css' | asset_url }}" async>
+  {% render 'social-meta-tags' %}
 
-    {{ content_for_header }}
-  </head>
+  {{- 'common.css' | asset_url | stylesheet_tag -}}
+  {{ content_for_header }}
+</head>
 
-  <body id="{{ page_title | handle }}" class="template-{{ template.name | handle }}">
+<body id="{{ page_title | handle }}" class="template-{{ template.name | handle }}">
+  <script src="{{- 'swiper.js' | asset_url -}}" defer></script>
+
+  <div class="overflow-block"></div>
+
+  {% sections 'header-group' %}
+
+  <main class="main">
     {{ content_for_layout }}
+  </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="{{ 'common.js' | asset_url }}" defer></script>
-  </body>
+  {%- section 'footer' -%}
+
+  <div class="overlay"></div>
+
+  <script src="{{ 'common.js' | asset_url }}" defer></script>
+  {% render 'css-fonts' %}
+</body>
 </html>

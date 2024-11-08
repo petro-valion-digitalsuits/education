@@ -1,6 +1,50 @@
-$fs10: 10px;
 $body-font-size: 14;
 
+$css-font-size: .97vw;
+
+$black: #000;
+$red: #eb5757;
+$grey: #787878;
+$dark-grey: #a9a9a9;
+$light-grey: #c7c7c7;
+$stroke: #f1ebe7;
+$milky: #fdfcf8;
+$pure-white: #fff;
+$yellow: #f7ffa4;
+$peach: #f1ebe7;
+$apricot: #f3bf9f;
+$olives: #d5e7d2;
+$blueberry: #d4eaed;
+$peach-light: #faf5f1;
+$black-opacity40: #00000066;
+$white-opacity80: #ffffffcc;
+$white: #fff;
+$transparent: transparent;
+
+$medium: 500;
+$medium600: 600;
+
+$opacity-0: 0;
+$opacity-40: .4;
+$opacity-80: .8;
+$opacity-100: 1;
+
+$default-border: 1px solid $black;
+$border-secondary: 1px solid $light-grey;
+$border-error: 1px solid $red;
+$border-menu: 1px solid $stroke;
+$border-label: 1px solid $apricot;
+
+$default-transition: .3s ease-in-out all;
+$menu-mobile-transition: .5s cubic-bezier(.15, .1, .45, 1) all;
+$fast-timeline-transition: .5s transform ease-in-out;
+$slow-timeline-transition: 1s transform ease;
+$loader-transition: 1.2s cubic-bezier(.5, 0, .5, 1) infinite;
+
+$swiper-arrow: "data:image/svg+xml,%3Csvg width='38' height='37' viewBox='0 0 38 37' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0.71875' y='1.41406' width='36' height='35' fill='%23F1EBE7'/%3E%3Cpath d='M13.5586 18.7458H23.8764M23.8764 18.7458L18.2689 12.9141M23.8764 18.7458L18.2689 24.9141' stroke='black' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='0.71875' y='1.41406' width='36' height='35' stroke='%23F1EBE7'/%3E%3C/svg%3E%0A";
+$review-icon: "data:image/svg+xml,%3Csvg width='12' height='10' viewBox='0 0 12 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.98438 1.16054L7.15242 3.52725L7.26875 3.76297L7.52889 3.80077L10.1407 4.18029L8.25077 6.02252L8.06254 6.206L8.10698 6.46508L8.55313 9.06635L6.21705 7.8382L5.98438 7.71587L5.7517 7.8382L3.41562 9.06635L3.86177 6.46508L3.90621 6.206L3.71798 6.02252L1.82804 4.18029L4.43986 3.80077L4.7 3.76297L4.81633 3.52725L5.98438 1.16054Z' fill='black' stroke='black'/%3E%3C/svg%3E%0A";
+$form-dropdown: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none"><path d="M3.5 6.21432L4.23505 5.44531L8.5 9.90731L12.765 5.44531L13.5 6.21432L8.5 11.4453L3.5 6.21432Z" fill="black"></path></svg>';
+$klavio-form-btn-arrow: "data:image/svg+xml,%3Csvg width='10' height='11' viewBox='0 0 10 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 10.5215L4.32564 9.84006L8.16737 5.99833H0V5.04464H8.16737L4.32564 1.20291L5 0.521484L10 5.52148L5 10.5215Z' fill='black'/%3E%3C/svg%3E%0A";
 
 @function rem($pxval) {
   @return ($pxval / $body-font-size) * 1rem;

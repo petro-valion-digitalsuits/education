@@ -1,0 +1,145 @@
+{%- liquid
+  assign product_image = object.featured_image
+  assign product_title = object.title
+  assign product_description = object.description | strip_html
+  assign sold_out_text = 'general.product.sold_out' | t
+  assign custom_sold_out_text = object.metafields.custom.sold_out_text
+  assign hide_sold_out_text = false
+  assign is_cut = true
+  assign is_hide_save_label = false
+  assign api_reviews_link = settings.api_reviews_link
+
+  unless object.has_only_default_variant
+    for variant in object.variants
+      if variant.metafields.custom.show_this_variant_sold_out_text
+        assign custom_sold_out_text = variant.metafields.custom.sold_out_text
+      endif
+
+      unless variant.metafields.custom.is_sold_out
+        assign hide_sold_out_text = true
+      endunless
+    endfor
+  else
+    unless object.selected_or_first_available_variant.custom.is_sold_out
+      assign hide_sold_out_text = true
+    endunless
+  endunless
+
+  unless is_cut_content
+    assign is_cut = false
+  endunless
+
+  if image != blank
+    assign product_image = image
+  endif
+
+  if title != blank
+    assign product_title = title
+  endif
+
+  if description != blank
+    assign product_description = description
+  elsif object.metafields.custom_fields.product_description != blank
+    assign is_cut = false
+    assign product_description = object.metafields.custom_fields.product_description | strip_html
+  endif
+
+  if object.template_suffix == 'set' and settings.is_hide_save_label
+    assign is_hide_save_label = true
+  endif
+-%}
+
+<a
+  href="{{- object.url -}}"
+  class="product-item {{ class_item }}{% if object.metafields.custom.sold_out_text != blank %} product-item--sold-out{% endif  %}"
+>
+  {%- if product_image contains '<img' -%}
+    {{- product_image -}}
+  {%- else -%}
+    {%- render 'lazy-img',
+      img: product_image
+      class: 'product-item__image',
+      alt: product_image.alt | default: shop.name
+    -%}
+  {%- endif -%}
+
+  <div class="product-item__content product-content{% if is_hide_save_label %} product-label--save-hidden{% endif %}">
+    <span
+      class="p p--capture stamped-product-reviews-badge product-item__reviews"
+      data-id="{{- object.id -}}"
+      data-product-sku="{{- object.selected_or_first_available_variant.sku -}}"
+      data-product-title="{{- object.title -}}"
+      data-product-type="{{- object.type -}}"
+      data-lang="{{- request.locale.iso_code -}}"
+      data-product="{{- object.selected_or_first_available_variant.sku -}},{{- object.handle -}}{%- for review_handle in object.metafields.custom.review_handle.value -%},{{- review_handle -}}{%- endfor -%}"
+      data-api-link="{{- api_reviews_link -}}"
+      data-page="1"
+    ></span>
+    <p class="product-item__title">
+      {%- if object.metafields.custom.alternative_title -%}
+        {{- object.metafields.custom.alternative_title -}}
+      {%- else -%}
+        {{- product_title -}}
+      {%- endif -%}
+    </p>
+    <div class="product-item__description">
+      {%- if is_cut -%}
+        <div class="p--smaller product-item__description--desktop">
+          {%- assign description_length = 56 -%}
+          {%- assign description_length_mobile = 50 -%}
+
+          {%- if class_item contains 'product-item--half' -%}
+            {%- assign description_length = 99 -%}
+            {%- assign description_length_mobile = 99 -%}
+          {%- endif -%}
+
+          {%- if product_description.size > description_length -%}
+            {{- product_description | truncate: description_length, '' -}}
+          {%- else -%}
+            {{- product_description -}}
+          {%- endif -%}
+
+          {%- if product_description.size < description_length -%}
+            <span class="p--smaller item__description-separator">...</span>
+          {%- endif -%}
+        </div>
+        <div class="p--smaller product-item__description--mobile">
+          {%- if product_description.size > description_length_mobile -%}
+            {{- product_description | truncate: description_length_mobile, '' -}}
+          {%- else -%}
+            {{- product_description -}}
+          {%- endif -%}
+
+          {%- if product_description.size < description_length_mobile -%}
+            <span class="p--smaller item__description-separator">...</span>
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        <div class="p--smaller">
+          {{- product_description -}}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="p p--smallest{% if object.metafields.custom.sold_out_text != blank or hide_sold_out_text == false %} p--old-out{% else %} product-item__price{% endif %}">
+      {%- if object.metafields.custom.sold_out_text != blank or hide_sold_out_text == false -%}
+        <span>{{ sold_out_text }}{% if sold_out_text != custom_sold_out_text and custom_sold_out_text != blank %} - {{ custom_sold_out_text }}{% endif %}</span>
+      {%- else -%}
+        {%- if object.selected_or_first_available_variant.compare_at_price > object.selected_or_first_available_variant.price -%}
+          <span
+            data-price-compare="{{- object.selected_or_first_available_variant.compare_at_price -}}"
+            class="p p--smallest product-item__price-compare"
+          >
+            {{- object.selected_or_first_available_variant.compare_at_price | money_without_trailing_zeros -}}
+          </span>
+        {%- endif -%}
+
+        <span
+          data-price="{{- object.selected_or_first_available_variant.price -}}"
+          data-id="{{- object.id -}}"
+        >
+          {{- object.selected_or_first_available_variant.price | money_without_trailing_zeros -}}
+        </span>
+      {%- endif -%}
+    </div>
+  </div>
+</a>

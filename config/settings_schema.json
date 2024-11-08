@@ -4,7 +4,30 @@
     "theme_name": "Skeleton theme",
     "theme_version": "1.0.0",
     "theme_author": "Shopify",
-    "theme_documentation_url": "https://github.com/Shopify/skeleton-theme",
-    "theme_support_url": "https://github.com/Shopify/skeleton-theme/issues"
+    "theme_documentation_url": "https:\/\/github.com\/Shopify\/skeleton-theme",
+    "theme_support_url": "https:\/\/github.com\/Shopify\/skeleton-theme\/issues"
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Image",
+        "info": "32 x 32px .png recommended"
+      }
+    ]
+  },
+  {
+    "name": "Font",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "store-font",
+        "label": "Font for store",
+        "default": "work_sans_n6",
+        "info": "Select font from library"
+      }
+    ]
   }
 ]

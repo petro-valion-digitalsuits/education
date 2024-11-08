@@ -1,0 +1,23 @@
+@import '../variables.scss';
+
+.announcement-bar {
+  overflow: hidden;
+
+  .announcement-bar__wrapper {
+    align-items: center;
+    display: grid;
+    height: rem(23);
+    text-align: center;
+    width: max-content;
+
+    &.announcement-bar__wrapper--sticky {
+      height: rem(14);
+    }
+
+    .announcement-bar__block {
+      @media screen and (max-width: 768px) {
+        margin-right: rem(60);
+      }
+    }
+  }
+}

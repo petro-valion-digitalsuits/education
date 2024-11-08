@@ -1,0 +1,105 @@
+{%- liquid
+  assign link_title = link.title
+  assign link_title_downcase = link_title | downcase
+  assign link_label = ''
+  assign link_label_text = ''
+  assign link_label_color = ''
+  assign link_border_color = ''
+  assign link_hide_desktop = false
+  assign link_hide_mobile = false
+  assign is_break = false
+  assign is_hidden_link = false
+  assign is_bold = false
+
+  if link_title contains '[setting]'
+    assign link_settings = link_title | split: ' [setting] '
+    assign link_title = link_settings.first
+    assign link_title_downcase = link_settings.first | downcase
+    assign link_settings = link_settings.last | split: ','
+
+    for setting in link_settings
+      if setting contains 'break'
+        assign is_break = true
+      endif
+
+      if setting contains 'border'
+        assign link_border_color = setting | split: '#'
+        assign link_border_color = link_border_color.last | prepend: '#'
+      endif
+
+      if setting contains 'label'
+        assign link_label_text = setting | split: ':'
+        assign link_label_text = link_label_text.last | split: '#'
+        assign link_label_color = link_label_text.last
+        assign link_label_text = link_label_text.first
+      endif
+
+      if setting contains 'desktop:hidden'
+        assign link_hide_desktop = true
+      endif
+
+      if setting contains 'mobile:hidden'
+        assign link_hide_mobile = true
+      endif
+
+      if setting contains 'hidden_link'
+        assign is_hidden_link = true
+      endif
+
+      if setting contains 'bold'
+        assign is_bold = true
+      endif
+    endfor
+  endif
+
+  if is_break
+    assign classes = classes | append: ' header__menu-item--margin-bottom'
+  endif
+
+  if link.links.size > 0
+    assign classes = classes | append: ' js-toggle-submenu'
+  endif
+
+  if is_hidden_link
+    assign classes = classes | append: ' header__menu-item--hidden'
+  endif
+
+  if is_bold
+    assign classes = classes | append: ' header__menu-item--bold'
+  endif
+-%}
+
+{%- capture accordion_icon -%}
+  <span class="header__menu-icon-arrow">
+    {%- render 'icons', icon: 'mobile-menu-caret' -%}
+  </span>
+{%- endcapture -%}
+
+<a
+  data-title="{{- link_title | handleize -}}"
+  class="{{- classes -}}"
+  href="{{- link.url -}}"
+>
+  {{- link_title -}}
+
+  {%- liquid
+    if link.links.size > 0
+      echo accordion_icon
+    endif
+  -%}
+
+  {%- if link_label_text != blank -%}
+    {%- liquid
+      unless link_label_color contains 'transparent'
+        assign link_label_color = link_label_color | prepend: '#'
+      endunless
+    -%}
+
+    <span
+      class="p p--uppercase p--tag header__menu-label{% if link_hide_desktop %} header__menu-label--mobile{% endif %}{% if link_hide_mobile %} header__menu-label--desktop{% endif %}"
+      style="{% if link_border_color != blank %}border: 1px solid {{ link_border_color }}; {% endif %}background-color: {{- link_label_color -}};"
+    >
+      {{- link_label_text -}}
+    </span>
+  {%- endif -%}
+</a>

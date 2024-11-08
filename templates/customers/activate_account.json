@@ -1,7 +1,8 @@
 {
   "sections": {
     "hero-slider": {
-      "type": "hero-slider"
+      "type": "hero-slider",
+      "settings": {}
     }
   },
   "order": [

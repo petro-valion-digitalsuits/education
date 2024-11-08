@@ -1,0 +1,18 @@
+.announcement-bar {
+  overflow: hidden;
+}
+.announcement-bar .announcement-bar__wrapper {
+  align-items: center;
+  display: grid;
+  height: 1.6428571429rem;
+  text-align: center;
+  width: max-content;
+}
+.announcement-bar .announcement-bar__wrapper.announcement-bar__wrapper--sticky {
+  height: 1rem;
+}
+@media screen and (max-width: 768px) {
+  .announcement-bar .announcement-bar__wrapper .announcement-bar__block {
+    margin-right: 4.2857142857rem;
+  }
+}

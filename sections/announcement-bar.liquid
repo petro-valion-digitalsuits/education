@@ -1,0 +1,285 @@
+{%- liquid
+  assign s = section.settings
+  assign enable_automation = s.enable_automation
+  assign show_section = true
+
+  if enable_automation
+    assign current_date = 'now' | date: '%d-%m-%Y %H:%M:%s'
+    assign start_section_date = s.start_date | date: '%d-%m-%Y %H:%M'
+    assign end_section_date = s.end_date | date: '%d-%m-%Y %H:%M'
+    assign current_bigger_than_start = false
+    assign current_smaller_than_end = false
+
+    if current_date > start_section_date
+      assign current_bigger_than_start = true
+    endif
+
+    if current_date < end_section_date
+      assign current_smaller_than_end = true
+    endif
+
+    if current_bigger_than_start and current_smaller_than_end
+      assign show_section = true
+    else
+      assign show_section = false
+    endif
+  endif
+-%}
+
+{%- if section.blocks.size > 0 and show_section -%}
+  {%- assign countdown_date = s.countdown_date |  date: "%b %d, %Y %H:%M" -%}
+  {%- assign current_time = 'now' | date: '%s' -%}
+  {%- assign countdown_in_miliseconds = countdown_date | date: '%s' -%}
+
+  <div
+    id="section--{{- section.id -}}"
+    class="announcement-bar__wrapper{% if s.is_sticky %} announcement-bar__wrapper--sticky{% endif %}"
+    data-section-id="{{- section.id -}}"
+    data-section-type="announcement-bar"
+    {%- if s.is_timer and countdown_in_miliseconds > current_time -%}data-time="{{- countdown_date -}}"{%- endif -%}
+    style="grid-template-columns: repeat({{- section.blocks.size | times: 2 -}}, 1fr);"
+  >
+    <link rel="stylesheet" href="{{- 'announcement-bar.css' | asset_url -}}">
+    <script src="{{- 'announcement-bar.js' | asset_url -}}" defer></script>
+    {%- for block in section.blocks -%}
+      {%- assign b = block.settings -%}
+
+      <div
+        style="min-width: {{- 100.0 | divided_by: s.slides-count -}}vw;"
+        class="announcement-bar__block"
+      >
+        <p class="p--tag p--uppercase"
+           {%- if b.discount_text != blank -%}data-discount="{{- b.discount_text -}}"{%- endif -%}
+          {%- if b.bogo_text != blank -%}data-bogo="{{- b.bogo_text -}}"{%- endif -%}
+          {%- if b.gift_text != blank -%}data-gift="{{- b.gift_text -}}"{%- endif -%}
+          {%- if b.countdown_text != blank -%}data-timer-text="{{- b.countdown_text -}}"{%- endif -%}
+           data-default="{{- b.title -}}">
+          {{- b.title  -}}
+        </p>
+      </div>
+    {%- endfor -%}
+
+    {%- for block in section.blocks -%}
+      {%- assign b = block.settings -%}
+
+      <div
+        style="min-width: {{- 100.0 | divided_by: s.slides-count -}}vw;"
+        class="announcement-bar__block"
+      >
+        <p class="p--tag p--uppercase"
+           {%- if b.discount_text != blank -%}data-discount="{{- b.discount_text -}}"{%- endif -%}
+          {%- if b.bogo_text != blank -%}data-bogo="{{- b.bogo_text -}}"{%- endif -%}
+          {%- if b.gift_text != blank -%}data-gift="{{- b.gift_text -}}"{%- endif -%}
+          {%- if b.countdown_text != blank -%}data-timer-text="{{- b.countdown_text -}}"{%- endif -%}
+           data-default="{{- b.title -}}">
+          {{- b.title  -}}
+        </p>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <style>
+    #section--{{- section.id -}}.announcement-bar__wrapper {
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-timing-function: linear;
+      -webkit-animation-name: ticker;
+      -webkit-animation-duration: {{ s.autoplay-speed | times: 2.0 }}s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      animation-name: ticker;
+      animation-duration: {{ s.autoplay-speed | times: 2.0 }}s;
+    {%- if s.background_image != blank -%}
+      background-image: url("{{- s.background_image | image_url: width: 200 -}}");
+      background-size: 100% 100%;
+    {%- else -%}
+      background-color: {{- s.background_color -}};
+    {%- endif -%}
+    }
+
+    #section--{{- section.id -}}.announcement-bar__wrapper .announcement-bar__block {
+      width: {{- 100.0 | divided_by: s.slides-count -}}vw;
+      color: {{- s.text_color -}};
+    }
+
+    @media screen and (max-width: 768px) {
+      #section--{{- section.id -}}.announcement-bar__wrapper .announcement-bar__block {
+        min-width: {{- 100.0 | divided_by: s.slides-count-m -}}vw;
+        width: auto;
+      }
+    }
+  </style>
+
+  {%- if s.is_sticky -%}
+    <style>
+      .shopify-section-group-header-group.announcement-bar {
+        left: 0;
+        position: sticky;
+        top: 0;
+        z-index: 5;
+      }
+
+      .shopify-section-group-header-group.header {
+        top: 1rem;
+      }
+
+      .collection-list div.collection-list__navigation {
+        top: 4.571428571428571rem;
+      }
+
+      @media screen and (max-width: 768px) {
+        .shopify-section-group-header-group.header .header__menu {
+          top: 4.5542857143rem;
+        }
+
+        .shopify-section-group-header-group.header .header__menu,
+        .shopify-section-group-header-group.header .header__wrapper:after {
+          height: calc(var(--window-height) - 4.5542857143rem);
+        }
+
+        .collection-list div.list__sort-icon {
+          top: 5.1rem;
+        }
+      }
+    </style>
+  {%- endif -%}
+{%- endif -%}
+
+{%- schema -%}
+  {
+    "name": "Announcement bar",
+    "tag": "section",
+    "class": "announcement-bar",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "is_sticky",
+        "label": "Enable sticky bar",
+        "default": false,
+        "info": "Enable this checkbox only for the announcement bar above the header if you want to make the section sticky."
+      },
+      {
+        "type": "range",
+        "id": "slides-count",
+        "label": "Slides Count",
+        "unit": "Sl",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 3
+      },
+      {
+        "type": "range",
+        "id": "slides-count-m",
+        "label": "Slides Count (Mobile)",
+        "unit": "Sl",
+        "min": 1,
+        "max": 10,
+        "step": 0.5,
+        "default": 3
+      },
+      {
+        "type": "range",
+        "id": "autoplay-speed",
+        "label": "Autoplay speed",
+        "unit": "s",
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "default": 8
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "#f7ffa4"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text color",
+        "default": "#000000"
+      },
+      {
+        "type": "header",
+        "content": "Timer"
+      },
+      {
+        "type": "checkbox",
+        "id": "is_timer",
+        "label": "Enable timer",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "countdown_date",
+        "label": "Countdown date",
+        "info": "The timer will be ticking till this specific date. Use format dd-mm-yyyy hh:mm. To use the timer in the text just use ${timer}"
+      },
+      {
+        "type": "header",
+        "content": "Automation"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_automation",
+        "label": "Enable automation"
+      },
+      {
+        "type": "text",
+        "id": "start_date",
+        "label": "Start Date",
+        "info": "Use format dd-mm-yyyy hh:mm. Stay empty if you don't need beginning date"
+      },
+      {
+        "type": "text",
+        "id": "end_date",
+        "label": "End Date",
+        "info": "Use format dd-mm-yyyy hh:mm."
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Announcement text",
+        "type": "announcement-bar",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "text",
+            "id": "discount_text",
+            "label": "Discount text"
+          },
+          {
+            "type": "text",
+            "id": "bogo_text",
+            "label": "BOGO text"
+          },
+          {
+            "type": "text",
+            "id": "gift_text",
+            "label": "Discount plus gift text"
+          },
+          {
+            "type": "text",
+            "id": "countdown_text",
+            "label": "Countdown text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "announcement",
+        "name": "Announcement"
+      }
+    ]
+  }
+{%- endschema -%}

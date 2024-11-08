@@ -1,1 +1,45 @@
+@import '../styles/typography';
 
+.overflow-block {
+  background: rgba(0, 0, 0, .32);
+  display: none;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  visibility: hidden;
+  width: 100%;
+  z-index: 100001;
+
+  &.overflow-block--visible {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.product-label--save-hidden {
+  .product-label {
+    p.save-tag,
+    p.save-tag--create {
+      display: none;
+    }
+  }
+}
+
+.product-label {
+  p.p--tag {
+    &.product-label--hidden {
+      display: none;
+    }
+  }
+}
+
+.cc-revoke {
+  display: none;
+}
+
+.cc-window {
+  z-index: 12 !important;
+}

@@ -1,0 +1,122 @@
+<link rel="stylesheet" href="{{- 'product-item.css' | asset_url -}}" />
+
+{%- assign stamped_products = '' -%}
+
+<div class="predictive-search">
+  <div class="predictive-search__field-content">
+    <input
+      class="predictive-search__field"
+      type="text"
+      name="search"
+      placeholder="{{- 'general.header.search' | t -}}"
+      spellcheck="false"
+      autocomplete="off" />
+    <p class="predictive-search__field-button js-toggle-search"></p>
+  </div>
+  <div class="predictive-search__content">
+    {%- if predictive_search.performed -%}
+      {%- if predictive_search.resources.products.size > 0 -%}
+        {%- for product in predictive_search.resources.products -%}
+          {%- liquid
+            assign product_class = ''
+            assign mobile_product_class = ''
+            assign stamped_products = stamped_products | append: '{'
+            assign stamped_products = stamped_products | append: '"productId":"' | append: product.id | append: '",'
+            assign stamped_products = stamped_products | append: '"productSKU":"' | append: product.selected_or_first_available_variant.sku | append: '",'
+            assign stamped_products = stamped_products | append: '"productTitle":"' | append: product.title | append: '",'
+            assign stamped_products = stamped_products | append: '"productType":"' | append: product.type | append: '"'
+            assign stamped_products = stamped_products | append: '}'
+
+            unless forloop.last
+              assign stamped_products = stamped_products | append: ','
+            endunless
+
+            if product.metafields.custom.width_on_a_collection != blank
+              assign product_class = product.metafields.custom.width_on_a_collection | prepend: 'product-item--'
+            endif
+
+            if product.metafields.custom.width_on_a_collection_mobile != blank
+              assign mobile_product_class = product.metafields.custom.width_on_a_collection_mobile | prepend: ' product-item--'
+              assign product_class = product_class | append: mobile_product_class
+            endif
+          -%}
+
+          {%- render 'product-item',
+            object: product,
+            is_cut_content: true,
+            class_item: product_class,
+            image: product.metafields["custom_fields"]["collection_image"]
+          -%}
+        {%- endfor -%}
+
+        <script type="application/json" class="stamped__json">
+          {{- stamped_products -}}
+        </script>
+      {%- else -%}
+        <p class="predictive-search__title-empty">
+          {{- 'general.header.no_results' | t -}}
+        </p>
+
+        {%- if title != blank -%}
+          <p class="predictive-search__content-title-empty h1">
+            {{- title | newline_to_br -}}
+          </p>
+        {%- endif -%}
+
+        <div class="predictive-search__content-empty{% if section.blocks.size > 3 %} js-init-search-slider{% endif %}">
+          <div{% if products_settings.size > 3 %} class="swiper-wrapper"{% endif %}>
+            {%- for s in products_settings -%}
+              {%- liquid
+                assign product_object = all_products[s.product]
+                assign product_description = s.product_description | newline_to_br
+                assign classes = s.product_width
+                assign stamped_products = stamped_products | append: '{'
+                assign stamped_products = stamped_products | append: '"productId":"' | append: product_object.id | append: '",'
+                assign stamped_products = stamped_products | append: '"productSKU":"' | append: product_object.selected_or_first_available_variant.sku | append: '",'
+                assign stamped_products = stamped_products | append: '"productTitle":"' | append: product_object.title | append: '",'
+                assign stamped_products = stamped_products | append: '"productType":"' | append: product_object.type | append: '"'
+                assign stamped_products = stamped_products | append: '}'
+
+                unless forloop.last
+                  assign stamped_products = stamped_products | append: ','
+                endunless
+
+                if products_settings.size > 3
+                  assign classes = classes | append: ' swiper-slide'
+
+                  if forloop.index > products_size
+                    assign classes = classes | append: ' swiper-slide--mobile-hiden'
+                  endif
+                endif
+              -%}
+
+              {%- render 'product-item',
+                object: product_object,
+                image: s.product_image,
+                title: s.product_title,
+                description: product_description,
+                class_item: classes,
+                is_cut_content: true
+              -%}
+            {%- endfor -%}
+          </div>
+
+          {%- if products_settings.size > 3 -%}
+            <div class="swiper-button__next"></div>
+            <div class="swiper-button__prev"></div>
+          {%- endif -%}
+        </div>
+
+        {%- if button_text != blank and button_link != blank -%}
+          <a class="button predictive-search__content-button-empty" href="{{- button_link -}}">
+            {{- button_text -}}
+          </a>
+        {%- endif -%}
+
+        <script type="application/json" class="stamped__json">
+          {{- stamped_products -}}
+        </script>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</div>

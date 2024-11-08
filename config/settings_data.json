@@ -1,7 +1,49 @@
 {
-    "current": "Default",
-    "presets": {
-      "Default": {}
-    }
+  "current": {
+    "store-font": "montserrat_n5",
+    "sections": {
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "form_jwtiXQ": {
+            "type": "form",
+            "settings": {
+              "klavio_form": ""
+            }
+          },
+          "4e8773a9-0423-4038-90b7-16d63c970be0": {
+            "type": "description",
+            "settings": {
+              "description": "<p><strong>Did you know \"Yepoda\" (예쁘다) means \"pretty\" in Korean?<\/strong><\/p><p>Stay in the glow: Sign up here for exclusive offers!<\/p>"
+            }
+          },
+          "5bfbf30e-33e6-4e43-b732-63cbd6964a55": {
+            "type": "menu",
+            "settings": {
+              "menu": "main-menu"
+            }
+          },
+          "ddb29d46-704a-4f15-8dcf-9a4934c7fb33": {
+            "type": "copyright",
+            "settings": {
+              "is_copyright": true
+            }
+          }
+        },
+        "block_order": [
+          "form_jwtiXQ",
+          "4e8773a9-0423-4038-90b7-16d63c970be0",
+          "5bfbf30e-33e6-4e43-b732-63cbd6964a55",
+          "ddb29d46-704a-4f15-8dcf-9a4934c7fb33"
+        ],
+        "settings": {
+          "footer_backgroud_list": ""
+        }
+      }
+    },
+    "content_for_index": []
+  },
+  "presets": {
+    "Default": {}
   }
-  
+}

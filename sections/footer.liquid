@@ -1,0 +1,266 @@
+{%- if section.blocks.size > 0 -%}
+  {%- assign s = section.settings -%}
+
+  <div id="section-{{- section.id -}}" class="footer__wrapper" data-section-id="{{- section.id -}}" data-section-type="footer">
+    <link rel="stylesheet" href="{{- 'footer.css' | asset_url -}}" />
+    <script src="{{- 'footer.js' | asset_url -}}" defer></script>
+
+    {%- for block in section.blocks -%}
+      {%- assign b = block.settings -%}
+
+      {%- if b.description != blank -%}
+        {%- capture description -%}
+          <div class="footer__description">
+            {{- b.description -}}
+          </div>
+        {%- endcapture -%}
+      {%- endif -%}
+
+      {%- if block.type == 'form' -%}
+        {%- capture footer_form -%}
+          {%- if b.klavio_form != blank -%}
+            {%- assign use_klavio = true -%}
+
+            <div class="input__wrapper input__klavio-form">
+              {{- b.klavio_form -}}
+            </div>
+            {%- else -%}
+              {%- form 'customer' -%}
+                <div class="input__wrapper">
+                  <input {% if form.errors %}class="input__error--active"{% endif %} placeholder="{{- 'general.footer.form_placeholder' | t -}}" type="email" name="contact[email]" />
+                  <label>{{- 'general.footer.form_placeholder' | t -}}</label>
+                  <div class="input__error">
+                    {%- if form.errors -%}
+                      {{- form.errors | default_errors -}}
+                    {%- endif -%}
+                  </div>
+                  <div class="footer__form-button js-submit-footer-form">
+                    <input type="submit" />
+                    {%- if form.posted_successfully? -%}
+                      {%- render 'icons', icon: 'check-mark' -%}
+                    {%- else -%}
+                      {%- render 'icons', icon: 'form-arrow' -%}
+                    {%- endif -%}
+                  </div>
+                </div>
+                <label class="checkbox" for="{{- section.id -}}">
+                  <input checked id="{{- section.id -}}" type="checkbox">
+                  <span class="checkmark"></span>
+                  <div class="label__text">
+                    {{- 'general.footer.label_html' | t -}}
+                  </div>
+                </label>
+              {%- endform -%}
+          {%- endif -%}
+        {%- endcapture -%}
+      {%- endif -%}
+
+      {%- if b.form_icon != blank -%}
+        {%- capture form_icos -%}
+          {{- form_icos -}}
+
+          {%- render 'lazy-img',
+            img: b.form_icon
+            class: 'footer__form-icon',
+            alt: b.form_icon.alt | default: shop.name
+          -%}
+        {%- endcapture -%}
+      {%- endif -%}
+
+      {%- if b.menu != blank -%}
+        {%- capture footer_menu -%}
+          <nav class="footer__navigation">
+            <ul class="footer__navigation-first">
+              {%- for first_link in linklists[b.menu].links -%}
+                <li>
+                  <a class="p js-toggle-footer-menu" href="{{- first_link.url -}}">
+                    {{- first_link.title -}}
+                  </a>
+
+                  {%- if first_link.links.size > 0 -%}
+                    <ul class="footer__navigation-second">
+                      {%- for second_link in first_link.links -%}
+                        <li>
+                          <a class="p p--smaller" href="{{- second_link.url -}}">
+                            {{- second_link.title -}}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </nav>
+        {%- endcapture -%}
+      {%- endif -%}
+
+      {%- if b.is_copyright -%}
+        {%- capture copyright_text -%}
+          <p class="p--capture">©{{- 'now' | date: '%Y' }} {{ shop.name -}}</p>
+        {%- endcapture -%}
+      {%- endif -%}
+
+      {%- if b.copyright_icon != blank -%}
+        {%- capture copyright_icons -%}
+          {{- copyright_icons -}}
+
+          {%- render 'lazy-img',
+            img: b.copyright_icon
+            class: 'footer__copyright-icon',
+            alt: b.copyright_icon.alt | default: shop.name
+          -%}
+        {%- endcapture -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if footer_form != blank and footer_menu != blank -%}
+      <div class="footer__top-side">
+        {%- if description != blank -%}
+          {{- description -}}
+        {%- endif -%}
+
+        <div class="footer__form{% if use_klavio %} footer__form-klavio{% endif %}">
+          {{- footer_form -}}
+        </div>
+
+        {%- if form_icos != blank -%}
+          <div class="footer__form-icons">
+            {{- form_icos -}}
+          </div>
+        {%- endif -%}
+
+        {{- footer_menu -}}
+      </div>
+      <div class="footer__bottom-side">
+        {%- if copyright_text != blank -%}
+          {{- copyright_text -}}
+        {%- endif -%}
+
+        {%- if copyright_icons != blank -%}
+          <div class="footer__bottom-side-icons">
+            {{- copyright_icons -}}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- liquid
+    assign background_color = '#fdfcf8'
+
+    if s.footer_backgroud_list
+      assign backgroud_list = s.footer_backgroud_list | newline_to_br | split: '<br />'
+
+      for backgroud_setting in backgroud_list
+        assign setting = backgroud_setting | split: ':'
+        assign background_link = setting.first | strip
+
+        if request.path == background_link
+          assign background_color = setting.last
+        endif
+      endfor
+    endif
+  -%}
+
+  <style>
+    #section-{{- section.id -}}.footer__wrapper {
+      background-color: {{- background_color -}};
+    }
+
+    #section-{{- section.id -}}.footer__wrapper  .input__wrapper input {
+      background-color: {{- background_color -}};
+    }
+  </style>
+{%- endif -%}
+
+{%- schema -%}
+  {
+    "name": "Footer",
+    "tag": "footer",
+    "class": "footer container container--full",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "footer_backgroud_list",
+        "label": "Backgrounds list",
+        "info": "For adding a background for a specific page you need to add url then : and then hex color. Example: /products/get-glassy:#F1EBE7. If you want to add the logic for meny pages you need to separate them via a break line.",
+        "default": "/pages/sustainability:#D5E7D2"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "description",
+        "name": "Description",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "description",
+            "label": "Text"
+          }
+        ]
+      },
+      {
+        "type": "form",
+        "name": "Form",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "klavio_form",
+            "label": "Klavio form code"
+          }
+        ]
+      },
+      {
+        "type": "form_icon",
+        "name": "Form icon",
+        "limit": 4,
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "form_icon",
+            "label": "Icon"
+          }
+        ]
+      },
+      {
+        "type": "menu",
+        "name": "Menu",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "link_list",
+            "id": "menu",
+            "label": "Menu"
+          }
+        ]
+      },
+      {
+        "type": "copyright",
+        "name": "Copyright",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "is_copyright",
+            "label": "Show copyright",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "copyright_icon",
+        "name": "Copyright icon",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "copyright_icon",
+            "label": "Copyright Icon"
+          }
+        ]
+      }
+    ]
+  }
+{%- endschema -%}
