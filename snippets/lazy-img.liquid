@@ -1,0 +1,98 @@
+{%- comment -%}
+  Expected behaviour:
+    Renders picture element
+
+  About:
+    Render a responsive image on both mobile and desktop
+
+  Accepts:
+    - img: {Object} Mobile image
+
+    OPTIONAL
+    - desktop_img: {Object} (Default: img) Desktop image
+    - max_width: {Integer} (Default: 1920) The maximum size this image should render in, this can optimise the site speed.
+    - lazy: {Boolean} (Default: true) In case you would like to disable the lazy loading
+    - class: {String} Class to add to the picture element
+    - img_class: {String} Class to add to the img element
+    - alt: {String} (Default: img.alt || shop.name) String to override img's default alt text
+
+  Usage:
+    {%- render 'component.image',
+      img: s.image,
+      desktop_img: s.desktop_image,
+      max_width: 2560,
+      alt: s.title
+    -%}
+{%- endcomment -%}
+
+{%- liquid
+  assign max_width = max_width | default: 1440
+  assign img = img | default: desktop_img
+  assign desktop_img = desktop_img | default: img
+
+  assign img_ratio = 1.00 | divided_by: img.aspect_ratio | times: 100
+  assign desktop_ratio = 1.00 | divided_by: desktop_img.aspect_ratio | times: 100
+
+  assign img_temp = img | image_url: width: 1
+  assign desktop_img_temp = desktop_img | image_url: width: 1
+
+  if img_temp contains 'width=1'
+    assign img_is_object = true
+  else
+    assign img_is_object = false
+  endif
+
+  if desktop_img_temp contains 'width=1'
+    assign desktop_img_is_object = true
+  else
+    assign desktop_img_is_object = false
+  endif
+-%}
+{%- comment -%} theme-check-disable ImgLazyLoading,RemoteAsset {%- endcomment -%}
+{%- if img != blank -%}
+  <picture
+    class='{{ class }} lozad'
+  >
+    <source
+      media='(max-width: 768px)'
+      sizes='(-webkit-min-device-pixel-ratio: 1),(max-resolution: 191dpi) 50vw, (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) 50vw'
+      srcset='
+        {%- if img_is_object -%}
+          {{ img | image_url: width: 165 }} 165w,
+          {%- if max_width >= 360 -%}{{ img | image_url: width: 360 }} 360w,{%- endif -%}
+          {%- if max_width >= 535 -%}{{ img | image_url: width: 535 }} 535w,{%- endif -%}
+          {%- if max_width >= 767 -%}{{ img | image_url: width: 767 }} 767w,{%- endif -%}
+        {%- else -%}
+          {{ img | file_img_url: '165x' }} 165w,
+          {%- if max_width >= 360 -%}{{ img | file_img_url: '360x' }} 360w,{%- endif -%}
+          {%- if max_width >= 535 -%}{{ img | file_img_url: '535x' }} 535w,{%- endif -%}
+          {%- if max_width >= 767 -%}{{ img | file_img_url: '767x' }} 767w,{%- endif -%}
+        {%- endif -%}
+      '
+    >
+    <source
+      media='(min-width: 769px)'
+      sizes='(-webkit-min-device-pixel-ratio: 1),(max-resolution: 191dpi) 50vw, (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) 100vw'
+      srcset='
+        {%- if desktop_img_is_object -%}
+          {{ desktop_img | image_url: width: 768 }} 768w,
+          {%- if max_width >= 1070 -%}{{ desktop_img | image_url: width: 1070 }} 1070w,{%- endif -%}
+          {%- if max_width >= 1500 -%}{{ desktop_img | image_url: width: 1500 }} 1500w,{%- endif -%}
+          {%- if max_width >= 2560 -%}{{ desktop_img | image_url: width: 2560 }} 2560vw,{%- endif -%}
+        {%- else -%}
+          {{ desktop_img | file_img_url: '768x' }} 768w,
+          {%- if max_width >= 1070 -%}{{ desktop_img | file_img_url: '1070x' }} 1070w,{%- endif -%}
+          {%- if max_width >= 1500 -%}{{ desktop_img | file_img_url: '1500x' }} 1500w,{%- endif -%}
+          {%- if max_width >= 2560 -%}{{ desktop_img | file_img_url: '2560x' }} 2560w,{%- endif -%}
+        {%- endif -%}
+      '
+    >
+    <img
+      src='{%- if img_is_object -%}{{ img | image_url: width: 100 }}{%- else -%}{{ img | file_img_url: '100x' }}{%- endif -%}'
+      alt='{{- alt | default: img.alt | default: shop.name | strip_html -}}'
+      width='{{- img.width -}}'
+      height='{{- img.height -}}'
+      decoding='async'
+    >
+  </picture>
+{%- endif -%}

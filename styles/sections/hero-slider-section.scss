@@ -1,0 +1,20 @@
+@import '../variables.scss';
+
+body,
+html {
+  font-size: .97vw;
+
+  @media all and (min-width: 1440px) {
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+h2 {
+  font-size: rem(60);
+  margin-bottom: em(10, 60);
+  opacity: 1;
+}

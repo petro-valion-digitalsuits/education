@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "hero-slider": {
+      "type": "hero-slider"
+    }
+  },
+  "order": [
+    "hero-slider"
+  ]
+}

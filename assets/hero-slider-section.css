@@ -1,0 +1,17 @@
+body,
+html {
+  font-size: .97vw; }
+  @media all and (min-width: 1440px) {
+    body,
+    html {
+      font-size: 14px; } }
+  @media screen and (max-width: 768px) {
+    body,
+    html {
+      font-size: 14px; } }
+
+h2 {
+  font-size: 4.28571rem;
+  margin-bottom: 0.16667em;
+  opacity: 1; }
+

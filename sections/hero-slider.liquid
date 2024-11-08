@@ -1,0 +1,79 @@
+{%- if section.blocks.size > 0 -%}
+  <hero-slider>
+    <link rel="stylesheet" href="{{- 'hero-slider-section.css' | asset_url -}}" async>
+    <script src="{{- 'hero-slider-section.js' | asset_url -}}" defer></script>
+    <div class="swiper">
+      <div class="heroSlider swiper-wrapper">
+        {%- for slide in section.blocks -%}
+          {%- assign b = slide.settings -%}
+          <div class="heroSlide__wrapper swiper-slide container">
+            <article class="heroSlide">
+              <div class="heroSlide__content">
+                <h2 class="h1">{{- b.slide_title -}}</h2>
+                <p class="p p--large p--italic">{{- b.slide_description -}}</p>
+                <a class="linkButton linkButton--large" href="{{- b.slide_link -}}">{{- b.slide_link_text -}}</a>
+              </div>
+              <div class="heroSlide__images">
+                {%- render 'lazy-img',
+                  img: b.slide_image
+                  class: 'heroSlide__image',
+                  alt: b.slide_title
+                -%}
+                {%- render 'lazy-img', class: 'heroSlide__watermark', src: b.slide_watermark, alt: 'Watermark' -%}
+              </div>
+            </article>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </hero-slider>
+{%- endif -%}
+
+
+{% schema %}
+
+{
+  "name": "Hero slider",
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "label": "Title",
+          "id": "slide_title",
+          "type": "text"
+        }, {
+          "label": "Short description",
+          "id": "slide_description",
+          "type": "text"
+        }, {
+          "label": "Link",
+          "id": "slide_link",
+          "type": "url"
+        }, {
+          "label": "Link text",
+          "id": "slide_link_text",
+          "type": "text",
+          "default": "learn more"
+        }, {
+          "label": "Image",
+          "id": "slide_image",
+          "type": "image_picker"
+        }, {
+          "label": "Watermark image",
+          "id": "slide_watermark",
+          "type": "image_picker"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero slider"
+    }
+  ]
+}
+
+{% endschema %}
