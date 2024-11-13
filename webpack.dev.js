@@ -11,6 +11,7 @@ module.exports = {
     header: ['./scripts/sections/header.js', './styles/sections/header.scss'],
     'announcement-bar': ['./scripts/sections/announcement-bar.js', './styles/sections/announcement-bar.scss'],
     footer: ['./scripts/sections/footer.js', './styles/sections/footer.scss'],
+    'featured-collection': ['./styles/sections/featured-collection.scss'],
   },
   output: {
     filename: '[name].js',

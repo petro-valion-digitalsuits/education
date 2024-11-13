@@ -13,7 +13,7 @@ html {
   margin: 0;
   scroll-behavior: smooth;
   width: 100%;
-  height: 100%;
+  height: max-content;
   display: flex;
   flex-direction: column;
 }
@@ -34,12 +34,9 @@ html.body--overflow-hidden {
   overflow: hidden;
 }
 
-.main {
-  flex: 1;
-}
-
 .container {
   margin: 4.2857142857rem auto;
+  padding: 0 2.8571428571rem;
   max-width: 1680px;
   width: 100%;
 }

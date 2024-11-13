@@ -16,19 +16,14 @@
   picture,
   img {
     display: block;
-    height: rem(405);
+    height: rem(250);
     margin: 0 auto;
     max-width: 100%;
-    object-fit: contain;
+    object-fit: cover;
     width: 100%;
-
-    @media screen and (min-width: 1599px) {
-      object-fit: contain;
-    }
 
     @media screen and (max-width: 768px) {
       height: rem(220);
-      object-fit: contain;
     }
   }
 
@@ -48,11 +43,15 @@
     margin-bottom: rem(14);
     min-height: rem(36);
     padding: 0 rem(15);
+    word-break: break-word;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 
     @media screen and (max-width: 768px) {
       margin-bottom: rem(6);
       padding: 0 rem(18);
-      word-break: break-word;
     }
 
     .product-item__description--desktop {
