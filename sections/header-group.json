@@ -1,0 +1,65 @@
+{
+  "name": "Header Group",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "624fd643-97a3-4795-9667-443833f3a157": {
+          "type": "announcement-bar",
+          "settings": {
+            "title": "K-Beauty for you. No compromises.",
+            "discount_text": "K-Beauty for you. No compromises.",
+            "bogo_text": "K-Beauty for you. No compromises.",
+            "gift_text": "K-Beauty for you. No compromises.",
+            "countdown_text": ""
+          }
+        },
+        "decc2075-1734-4d69-92d7-bd896029ca0d": {
+          "type": "announcement-bar",
+          "settings": {
+            "title": "K-Beauty for you. No compromises.",
+            "discount_text": "K-Beauty for you. No compromises.",
+            "bogo_text": "K-Beauty for you. No compromises.",
+            "gift_text": "K-Beauty for you. No compromises.",
+            "countdown_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "624fd643-97a3-4795-9667-443833f3a157",
+        "decc2075-1734-4d69-92d7-bd896029ca0d"
+      ],
+      "settings": {
+        "is_sticky": true,
+        "slides-count": 2,
+        "slides-count-m": 1,
+        "autoplay-speed": 15,
+        "background_color": "#f7ffa4",
+        "text_color": "#000000",
+        "is_timer": true,
+        "countdown_date": "26-05-2024 23:59",
+        "enable_automation": false,
+        "start_date": "",
+        "end_date": ""
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo": "shopify:\/\/shop_images\/logo_1.webp",
+        "mobile_logo": "shopify:\/\/shop_images\/logo_1.webp",
+        "menu": "main-menu",
+        "menu_mobile": "main-menu",
+        "title": "",
+        "button_text": "",
+        "button_link": "",
+        "products_size": 3
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
+}

@@ -1,0 +1,325 @@
+{%- assign s = section.settings -%}
+
+{%- if s.menu != blank -%}
+  <link rel="stylesheet" href="{{- 'header.css' | asset_url -}}">
+  <style>
+    :root {
+      --window-height: 0;
+    }
+  </style>
+
+  <div
+    class="container container--full header__wrapper"
+    data-section-id="{{ section.id }}"
+    data-section-type="header"
+  >
+    <div class="header__menu-button js-toggle-mobile-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="header__logo-wrapper">
+      <a href="{{- shop.url -}}">
+        {%- liquid
+          assign desktop_logo_classes = 'header__logo'
+
+          if s.mobile_logo != blank
+            assign desktop_logo_classes = desktop_logo_classes | append: ' header__logo--desktop'
+
+            render 'lazy-img', img: s.mobile_logo, class: 'header__logo header__logo--mobile', lazy: false, alt: s.mobile_logo.alt | default: shop.name
+          endif
+
+          if s.logo != blank
+            render 'lazy-img', img: s.logo, class: desktop_logo_classes, lazy: false, alt: s.logo.alt | default: shop.name
+          endif
+        -%}
+      </a>
+    </div>
+    <nav class="header__menu{% if s.menu_mobile != blank %} header__menu--desktop{% endif %}">
+      <ul class="header__menu-first">
+        {%- for link_first in linklists[s.menu].links -%}
+          <li>
+            {%- liquid
+              assign link_classes = 'p p--uppercase p--descriptor header__menu-submenu-item'
+
+              if forloop.first
+                assign link_classes = link_classes | append: ' header__menu-submenu-item--active'
+              endif
+
+              render 'menu-link', link: link_first, classes: link_classes
+            -%}
+
+            {%- if link_first.links.size > 0 -%}
+              <div data-submenu="{{- link_first_title | handleize -}}" class="header__overlay">
+                <ul class="header__menu-second">
+                  {%- for link_second in link_first.links -%}
+                    <li>
+                      {%- liquid
+                        assign link_classes = 'p header__menu-submenu-item'
+
+                        if forloop.first
+                          assign link_classes = link_classes | append: ' header__menu-submenu-item--active'
+                        endif
+
+                        render 'menu-link', link: link_second, classes: link_classes
+                      -%}
+
+                      {%- if link_second.links.size > 0 -%}
+                        <ul data-submenu="{{- link_second.title | handleize -}}" data-position="{{- forloop.index -}}" class="header__menu-third">
+                          {%- for link_third in link_second.links -%}
+                            <li>
+                              {%- assign link_classes = '' -%}
+
+                              {%- render 'menu-link', link: link_third, classes: link_classes -%}
+                            </li>
+                          {%- endfor-%}
+
+                          {%- if section.blocks.size > 0 -%}
+                            {%- for block in section.blocks -%}
+                              {%- liquid
+                                assign menu_image = ''
+                                assign b = block.settings
+                                assign first_level_determinant = b.main_title | downcase
+                                assign second_level_determinant = b.second_main_title | downcase
+
+                                if link_first.title contains '[setting]'
+                                  assign first_level_title_downcase = link_first.title | split: ' [setting] ' | first | downcase
+                                else
+                                  assign first_level_title_downcase = link_first.title | downcase
+                                endif
+
+                                if link_second.title contains '[setting]'
+                                  assign second_level_title_downcase = link_second.title | split: ' [setting] ' | first | downcase
+                                else
+                                  assign second_level_title_downcase = link_second.title | downcase
+                                endif
+
+                                if first_level_determinant != blank and second_level_determinant != blank and first_level_title_downcase == first_level_determinant and second_level_title_downcase == second_level_determinant
+                                  assign menu_image = b.image
+                                endif
+                              -%}
+
+                              {%- if menu_image != blank -%}
+                                <li class="header__menu-content">
+                                  {%- liquid
+                                    render 'lazy-img', img: menu_image, alt: menu_image.alt | default: shop.name
+                                  -%}
+                                </li>
+                              {%- endif -%}
+                            {%- endfor -%}
+                          {%- endif -%}
+                        </ul>
+                      {%- endif -%}
+                    </li>
+                  {%- endfor-%}
+                </ul>
+              </div>
+            {%- endif -%}
+          </li>
+        {%- endfor-%}
+      </ul>
+    </nav>
+
+    {%- if s.menu_mobile != blank -%}
+      <nav class="header__menu header__menu--mobile">
+        <ul class="header__menu-first">
+          {%- for link_first in linklists[s.menu_mobile].links -%}
+            <li>
+              {%- liquid
+                assign link_classes = 'p p--uppercase p--descriptor header__menu-submenu-item'
+
+                if forloop.first
+                  assign link_classes = link_classes | append: ' header__menu-submenu-item--active'
+                endif
+
+                render 'menu-link', link: link_first, classes: link_classes
+              -%}
+
+              {%- if link_first.links.size > 0 -%}
+                <div class="header__overlay">
+                  <ul class="header__menu-second">
+                    {%- for link_second in link_first.links -%}
+                      <li>
+                        {%- liquid
+                          assign link_classes = 'p header__menu-submenu-item'
+
+                          render 'menu-link', link: link_second, classes: link_classes
+                        -%}
+
+                        {%- if link_second.links.size > 0 -%}
+                          <ul class="header__menu-third">
+                            {%- for link_third in link_second.links -%}
+                              <li>
+                                {%- liquid
+                                  render 'menu-link', link: link_third
+                                -%}
+                              </li>
+                            {%- endfor-%}
+                          </ul>
+                        {%- endif -%}
+                      </li>
+                    {%- endfor-%}
+                  </ul>
+                </div>
+              {%- endif -%}
+            </li>
+          {%- endfor-%}
+        </ul>
+      </nav>
+    {%- endif -%}
+
+    <a class="header__icon header__icon-search js-toggle-search">
+      {%- render 'icons', icon: 'search' -%}
+    </a>
+    <a href="/account{%- unless customer -%}/login{%- endunless -%}" class="header__icon header__icon-account">
+      {%- render 'icons', icon: 'account' -%}
+    </a>
+    <a href="{{- routes.cart_url -}}" id="icon-cart" class="js-open-drawer header__icon">
+      <span class="header__icon-cart{% if cart.item_count > 0 %} header__icon-cart--active{% endif %}">
+        <span class="header__icon-cart-text p p--descriptor">
+          {{- cart.item_count -}}
+        </span>
+        {%- render 'icons', icon: 'cart' -%}
+      </span>
+    </a>
+  </div>
+  {%- if section.blocks.size > 0 -%}
+    {%- assign search_products = section.blocks | where: 'type', 'product' | map: 'settings' -%}
+  {%- endif -%}
+
+  {%- render 'predictive-search' -%}
+
+  <script src="{{- 'header.js' | asset_url -}}" defer></script>
+{%- endif -%}
+
+{%- schema -%}
+  {
+    "name": "Header",
+    "tag": "header",
+    "class": "header",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_logo",
+        "label": "Mobile Logo"
+      },
+      {
+        "type": "link_list",
+        "id": "menu",
+        "label": "Menu"
+      },
+      {
+        "type": "link_list",
+        "id": "menu_mobile",
+        "label": "Mobile Menu"
+      },
+      {
+        "type": "header",
+        "content": "Predisctive search (Empty state)"
+      },
+      {
+        "type": "textarea",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "header",
+        "content": "Button"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Text"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Link"
+      },
+      {
+        "type": "range",
+        "id": "products_size",
+        "label": "Products count (Mobile)",
+        "min": 1,
+        "max": 6,
+        "step": 1,
+        "default": 3
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Submenu image",
+        "type": "image",
+        "settings": [
+          {
+            "type": "text",
+            "id": "main_title",
+            "label": "Main title",
+            "info": "This field has to be the same as one of the links in the menu. We use it to connect the content below to the submenu."
+          },
+          {
+            "type": "text",
+            "id": "second_main_title",
+            "label": "Second level Main title"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }
+        ]
+      },
+      {
+        "type": "product",
+        "name": "Search product",
+        "settings": [
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+          },
+          {
+            "type": "header",
+            "content": "Product settings"
+          },
+          {
+            "type": "image_picker",
+            "id": "product_image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "product_title",
+            "label": "Title"
+          },
+          {
+            "type": "textarea",
+            "id": "product_description",
+            "label": "Description"
+          },
+          {
+            "type": "radio",
+            "id": "product_width",
+            "label": "Width",
+            "options": [
+              {
+                "value": "product-item--quarter",
+                "label": "Quarter"
+              },
+              {
+                "value": "product-item--half",
+                "label": "Half"
+              }
+            ],
+            "default": "product-item--quarter"
+          }
+        ]
+      }
+    ]
+  }
+{%- endschema -%}

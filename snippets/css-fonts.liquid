@@ -1,8 +1,10 @@
+{%- assign base_font = settings.store-font -%}
 <style>
-  /*@font-face {
-    font-family: "Sailec";
-    font-style: italic;
-    font-weight: bold;
-    src: url("{{ 'Sailec_Bold_Italic.otf' | asset_url }}") format("otf"), url("{{ 'Sailec_Bold_Italic.ttf' | asset_url }}") format("truetype");
-  }*/
+  {{- base_font | font_face -}}
+
+  *,
+  body,
+  html {
+    font-family: {{- base_font.family -}}, {{- base_font.fallback_families -}};
+  }
 </style>

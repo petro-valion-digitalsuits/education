@@ -1,10 +1,13 @@
 {
   "sections": {
-    "hero-slider": {
-      "type": "hero-slider"
+    "featured_collection_q3B3j3": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "all"
+      }
     }
   },
   "order": [
-    "hero-slider"
+    "featured_collection_q3B3j3"
   ]
 }

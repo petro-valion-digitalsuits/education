@@ -1,1 +1,383 @@
-{}
+{
+  "general": {
+    "timeline": {
+      "year": "Year",
+      "current": "Current"
+    },
+    "reviews": {
+      "verified_buyer": "Verified"
+    },
+    "index": {
+      "label": "Home"
+    },
+    "language_swicther": {
+      "british": "English",
+      "german": "German",
+      "italian": "Italian",
+      "spanish": "Spain",
+      "french": "French",
+      "europe": "Europe",
+      "united_states": "United States"
+    },
+    "timer": {
+      "block_text_1": "Days",
+      "block_text_2": "Hours",
+      "block_text_3": "Minutes",
+      "block_text_4": "Seconds",
+      "timer": "Timer:"
+    },
+    "product": {
+      "save_percent_html": "SAVE <span>{{ save_percent }}<\/span>%",
+      "discount_value_html": "{{ save_percent }}%",
+      "estimated_time_html": "Estimated shipping time - {{ estimated_time }}",
+      "money_back": "30-day money-back guarantee",
+      "add_to_cart": "Add To Cart",
+      "sold_out": "Sold Out",
+      "new": "NEW",
+      "all_shades": "All shades",
+      "reviews": "Reviews",
+      "write_review": "Write a review",
+      "select_color": "Select colours",
+      "sold_out_variant": "Sold Out",
+      "sold_out_variant_label": "Sold Out",
+      "notify_me_title": "Get notified when your shade will be available",
+      "notify_me_subtitle": "Enter your email and we'll send you a notification when your shade will be available",
+      "notify_me": "Notify me when available",
+      "faq": {
+        "title": "FAQ"
+      }
+    },
+    "footer": {
+      "form_placeholder": "Email address",
+      "label_html": "By proceeding you agree to out <a href='\/pages\/terms-and-conditions'>Terms and Conditions<\/a>"
+    },
+    "account": {
+      "general": {
+        "welcome": "Welcome",
+        "logout": "Logout",
+        "my_account": "My account",
+        "order_history": "Order history",
+        "addresses": "Addresses",
+        "personal_information": "Personal information",
+        "name": "Name",
+        "surname": "Surname",
+        "email": "Email",
+        "phone": "Phone",
+        "orders": "Orders in total ({{ count }})",
+        "order_number": "Order number",
+        "order_number_mobile": "Order",
+        "order_date": "Order date",
+        "order_date_mobile": "Date",
+        "total_price": "Total price",
+        "total_price_mobile": "Price",
+        "state": "State"
+      },
+      "login": {
+        "sign_in": "Sign in",
+        "email": "Input",
+        "password": "Password",
+        "button": "Sign in",
+        "register": "Create an account",
+        "forgot_password": "Forgot password"
+      },
+      "register": {
+        "sign_up": "Create an account",
+        "name": "Name",
+        "last_name": "Last Name",
+        "email": "Email",
+        "password": "Password",
+        "button": "Create an account",
+        "login": "Already registered",
+        "agreement_1_html": "I agree with the <a href='\/policies\/privacy-policy'>Privacy Policy<\/a>",
+        "agreement_2": "I agree to receive Yepoda communications.",
+        "password_error": "Min 8 characters, 1 uppercase, 1 number.",
+        "error_header": "Please adjust the following:",
+        "activation": "Check your email and make sure your account is activated."
+      },
+      "forget": {
+        "reset": "Reset password",
+        "subtitle": "Please enter your account email address where you will receive an email to reset your password.",
+        "email": "Email address",
+        "button": "Submit"
+      },
+      "thank_you": {
+        "title": "Thank you!",
+        "description": "Please check your email to reset your password.",
+        "button": "Back to Homepage"
+      },
+      "reset": {
+        "title": "Update password",
+        "description": "Note: Your password should be at least 8 characters long with 1 special symbol.",
+        "password": "Password",
+        "confirm": "Confirm password",
+        "button": "Update password",
+        "password_error": "Min 8 characters, 1 uppercase, 1 number."
+      },
+      "activate_account": {
+        "title": "Activate account",
+        "subtitle": "Create your password to activate your account.",
+        "password": "Password",
+        "confirm_password": "Confirm password",
+        "note": "Note: Your password should be at least 8 characters long with 1 special symbol.",
+        "submit": "Active account",
+        "cancel": "Decline invitation",
+        "password_error": "Min 8 characters, 1 uppercase, 1 number.",
+        "password_error_confirm": "Passwords do not match"
+      },
+      "orders": {
+        "shipping_address": "Shipping address",
+        "billing_address": "Billing address",
+        "overview": "This is an overview of your order. Here you can make a request for your order to be returned.",
+        "quantity": "QTY: {{ count }}",
+        "subtotal": "Subtotal",
+        "shipping": "Shipping",
+        "discount": "Discount",
+        "total": "Total",
+        "no_orders": "No orders yet",
+        "dont_have_orders": "You don't have any orders yet, please visit our e-shop.",
+        "button": "Continue shopping"
+      },
+      "addresses": {
+        "general": "Address book",
+        "primary_label": "Primary",
+        "edit": "Edit",
+        "edit_address": "Edit address",
+        "remove": "Remove",
+        "add_new_address": "Add new address",
+        "first_name": "First name",
+        "last_name": "Last name",
+        "company": "Company",
+        "address1": "Street name and number",
+        "address2": "Additional details",
+        "country": "Country",
+        "city": "City",
+        "state": "State",
+        "zip": "Zip code",
+        "phone": "Phone",
+        "save": "Save",
+        "primary_checkbox": "Make a primary address",
+        "no_address": "No addresses yet",
+        "no_address_desription": "You don't have any saved address yet."
+      }
+    },
+    "collection": {
+      "sort_title": "Sort by:",
+      "sort_manual": "Manual",
+      "load_button": "Load More ...",
+      "sort_by": {
+        "manual": "Featured",
+        "best-selling": "Best selling",
+        "title-ascending": "Alphabetically, A-Z",
+        "title-descending": "Alphabetically, Z-A",
+        "price-ascending": "Price, low to high",
+        "price-descending": "Price, high to low",
+        "created-ascending": "Date, old to new",
+        "created-descending": "Date, new to old"
+      }
+    },
+    "cart": {
+      "item_added": "ADDED TO CART",
+      "title": "Shopping Cart ( {{ products_count }} )",
+      "checkout_button": "Checkout – {{ checkout_price }}",
+      "checkout_button_text": "EST. shipping: {{ date }} working days",
+      "discount_info_html": "I have a <a class='js-toggle-discount'>{{ discount }}<\/a>",
+      "discount_applied_html": "Discount code: <a class='js-toggle-discount cart-drawer__tag'>{{ discount }}<\/a>",
+      "shipping_cost": "Estimated shipping cost",
+      "shipping_text": "Calculate on the next step",
+      "link_remove": "remove",
+      "link_update": "update",
+      "progress_title": "A free gift",
+      "next_step_title": "Add",
+      "collection_gift_title_html": "<span class='cart-drawer__gift-price'>Select Free Gift <span><\/span><\/span>",
+      "collection_gift_button": "Save selection",
+      "collection_gift_cancel_html": "I don't need a gift",
+      "collection_gift_button_select": "Select",
+      "collection_gift_button_selected": "Selected",
+      "gift_quantity": "Quantity: {{ size }}",
+      "empty_cart": "Your cart is empty",
+      "discount_field": "Promocode",
+      "discount_button": "Redeem",
+      "gift_description_html": "Free when spent over {{ price }}€",
+      "discount_info_title": "promocode",
+      "discount_error_text": "Invalid voucher code",
+      "discount_bogo_error": "You need to add more items to the cart",
+      "gift_list_title": "Select your first gift"
+    },
+    "header": {
+      "search": "Search ...",
+      "no_results": "Opps, No results to match your search."
+    },
+    "loyalty": {
+      "log_in": "Log In",
+      "join": "Join The Fam"
+    }
+  },
+  "gift_card": {
+    "issued": {
+      "subtext": "Here's your gift card!",
+      "illustration_alt": "Gift card illustration",
+      "disabled": "Your gift card is disabled.",
+      "expired": "Your gift card expired on {{ expiry }}.",
+      "expires_on": "Your gift card expires on {{ expiry }}.",
+      "redeem_html": "Use this code at checkout to redeem your gift card, or {{print_link}} this page.",
+      "shop_link": "Start shopping",
+      "print": "print",
+      "initial_amount_html": "Amount: {{initial_amount}}",
+      "remaining_balance_html": "Balance left: {{balance}}",
+      "add_to_apple_wallet": "Add to Apple Wallet"
+    }
+  },
+  "beauty_steps": {
+    "recommends": {
+      "title": "YEPODA RECOMMENDS"
+    }
+  },
+  "custom_bundle": {
+    "general": {
+      "step1": "Pick your {{min}}-{{max}} products",
+      "step2": "Add them to your set",
+      "step3": "More products — Higher discount",
+      "add_to_set": "Add to set",
+      "add_more": "Add more",
+      "bundle_info": "Add at least {{ count }} products to see the price",
+      "select_products": "Select the products",
+      "add_to_cart": "Get the set",
+      "estimated_total": "Estimated Total",
+      "saving": "Saving ",
+      "quantity": "QTY",
+      "start_set": "Start creating",
+      "name": "Your set №",
+      "sold_out": "Sold Out",
+      "filter_all": "All"
+    }
+  },
+  "shade": {
+    "tooltip": "The Dewy Day’s eco-friendly refill needs an initial purchase of the full size product.",
+    "try_on": "Find your shade"
+  },
+  "bundles": {
+    "options": {
+      "first_option": "Select 1-st colour",
+      "second_option": "{{ option }}-nd colour",
+      "third_option": "{{ option }}-rd colour",
+      "other_option": "{{ option }}-th colour"
+    },
+    "save": "SAVE {{ discount }}",
+    "with_case": "With case",
+    "with_case_tooltip": "After you choose your colour of the day and easily put balm into the refillable case.",
+    "refill_only": "Refill only (-{{ product_price }})"
+  },
+  "legals": {
+    "title": "Legals"
+  },
+  "how_to_use": {
+    "announcements_label": "How to use"
+  },
+  "ingredients": {
+    "see_all_ingredients": "See all Ingredients ...",
+    "full_ingredients_list": "Full Ingredients List"
+  },
+  "details": {
+    "volume": "1 fl oz",
+    "what_it_is": "What it is",
+    "key_ingredients": "Key ingredients",
+    "learn_more": "Learn more",
+    "show_more": "Show more ...",
+    "show_less": "Show less ..."
+  },
+  "collection": {
+    "sort_title": "Sort by:"
+  },
+  "language_modal": {
+    "title_de_html": "Visiting from <strong>Germany?<\/strong>",
+    "description_de": "For shipping to Germany, continue to the DE store",
+    "title_fr_html": "Visiting from <strong>France?<\/strong>",
+    "description_fr": "For shipping to France, continue to the FR store",
+    "title_es_html": "Visiting from <strong>Spain?<\/strong>",
+    "description_es": "For shipping to Spain, continue to the ES store",
+    "title_it_html": "Visiting from <strong>Italy?<\/strong>",
+    "description_it": "For shipping to Italy, continue to the IT store",
+    "title_gb_html": "Visiting from <strong>United Kingdom?<\/strong>",
+    "description_gb": "For shipping to United Kingdom, continue to the UK store",
+    "title_us_html": "Visiting from <strong>United States?<\/strong>",
+    "description_us": "For shipping to United States, continue to the US store",
+    "button_html": "<span class='country-code'><\/span> store",
+    "continue_button": "{{ store }} store"
+  },
+  "contact": {
+    "form": {
+      "name": "Your name",
+      "email": "Your email",
+      "message": "Your message",
+      "submit": "Send message",
+      "successfully_sent": "Your message has been successfully sent."
+    },
+    "form_with_files": {
+      "subtitle": "QUESTION:",
+      "error": "Error",
+      "memory_limit": "Memory limit",
+      "submit_button": "Submit",
+      "follow_us": "Social media",
+      "email": "Email",
+      "email_partners": "For partnership or press inquiries:",
+      "instagram": "INSTAGRAM",
+      "facebook": "FACEBOOK",
+      "tiktok": "TIKTOK"
+    }
+  },
+  "shopify": {
+    "checkout": {
+      "general": {
+        "pay_now_button_label": "Order now"
+      },
+      "order_summary": {
+        "expand_order_summary": "Show summary and enter voucher code"
+      },
+      "field_errors": {
+        "address_address2_blank": "Please add your House Number",
+        "address_address1_blank": "Please enter you Street Name"
+      },
+      "contact": {
+        "address1_label": "Street Name",
+        "address2_label": "House Number",
+        "civic_number_warning": "Please add your house number separately below"
+      }
+    }
+  },
+  "thank_you_page": {
+    "order_delay": "Please allow {{ min }}-{{ max }} business days for your order to fulfill.",
+    "instagram": "Ready to start your K-Beauty routine? Follow us to learn how to use our products"
+  },
+  "skin_analizer": {
+    "button": "Start scan"
+  },
+  "reviews": {
+    "questions": {
+      "age": "Age:",
+      "age_original": "How old are you? What is your age range?",
+      "skin_type": "Skin type:",
+      "skin_type_original": "What is your skin type? How would you describe your skin type?",
+      "skin_concerns": "Skin concern:",
+      "skin_concerns_original": "What are your skin concerns? What skin problems do you have? What are your main skin concerns? What are your concerns regarding your skin?",
+      "recommend": "Recommend:",
+      "recommend_original": "Recommend"
+    },
+    "translated_from": "Translated from:",
+    "show_original": "Show original",
+    "show_translated": "Show translated",
+    "verified_buyer": "Verified Buyer",
+    "share": "Share",
+    "was_this_helpful": "Was this helpful?",
+    "i_recommend_this_product": "I recommend this product",
+    "loading_more": "Loading more...",
+    "no_result": "No reviews matched the selected criteria. Clear or modify your filter and try again.",
+    "summery_text": "Based on {{ count }} Reviews",
+    "en": "English",
+    "de": "German",
+    "fr": "French",
+    "es": "Spanish",
+    "it": "Italian",
+    "sv": "Swedish",
+    "nl": "Dutch"
+  }
+}
