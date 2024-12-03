@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="{{- 'product-item.css' | asset_url -}}"/>
+
+<predictive-search class="predictive-search">
+  <div class="predictive-search__field-content">
+    <input
+      class="predictive-search__field"
+      type="text"
+      name="search"
+      placeholder="{{- 'general.header.search' | t -}}"
+      spellcheck="false"
+      autocomplete="off"/>
+    <p class="predictive-search__field-button js-toggle-search"></p>
+  </div>
+  <div class="predictive-search__content">
+    {%- if predictive_search.performed -%}
+      {%- if predictive_search.resources.products.size > 0 -%}
+        {%- for product in predictive_search.resources.products -%}
+          {%- render 'product-item',
+            object: product,
+            is_cut_content: true
+          -%}
+        {%- endfor -%}
+      {%- else -%}
+        <p class="predictive-search__title-empty">
+          {{- 'general.header.no_results' | t -}}
+        </p>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</predictive-search>
+
+<script src="{{- 'predictive-search.js' | asset_url -}}" defer="defer"></script>
