@@ -1,0 +1,9 @@
+@import '../variables.scss';
+
+.featured-collection {
+  &__products-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: rem(20);
+  }
+}

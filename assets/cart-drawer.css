@@ -1,0 +1,101 @@
+.cart-drawer {
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: 0.3s ease-in-out all;
+  z-index: 20;
+}
+.cart-drawer.cart-drawer--active {
+  opacity: 1;
+  pointer-events: all;
+}
+.cart-drawer.cart-drawer--active .cart-drawer__wrapper {
+  right: 0;
+}
+.cart-drawer .cart-drawer__wrapper {
+  background-color: #fdfcf8;
+  display: block;
+  position: fixed;
+  right: -100%;
+  transition: 0.3s ease-in-out all;
+  width: 35.7142857143rem;
+}
+.cart-drawer .cart-drawer__header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.4285714286rem;
+  position: relative;
+  z-index: 2;
+  background: #fdfcf8;
+  border-bottom: 1px solid #000;
+}
+.cart-drawer .cart-drawer__title {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 4px;
+}
+.cart-drawer .cart-drawer__header-button {
+  cursor: pointer;
+}
+.cart-drawer .cart-items {
+  background-color: #fdfcf8;
+  display: block;
+  height: var(--window-height);
+  overflow: auto;
+  position: relative;
+  z-index: 2;
+  padding: 0 1.4285714286rem;
+}
+.cart-drawer .cart-items .cart-item {
+  display: flex;
+  gap: 0.7142857143rem;
+  align-items: center;
+  margin-top: 1.4285714286rem;
+}
+.cart-drawer .cart-items .cart-item__main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  gap: 10px;
+}
+.cart-drawer .cart-items .cart-item__image-wrapper {
+  height: 7.1428571429rem;
+  width: 7.1428571429rem;
+}
+.cart-drawer .cart-items .cart-item__image-wrapper img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+.cart-drawer .cart-items .cart-item__quantity-picker {
+  align-items: center;
+  color: #a9a9a9;
+  display: grid;
+  height: 2.1428571429rem;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 50%;
+  justify-items: center;
+}
+.cart-drawer .cart-items .cart-item__quantity-picker .cart-item__quantity-field {
+  width: 100%;
+}
+.cart-drawer .cart-items .cart-item__quantity-picker .cart-item__quantity-button {
+  padding: 0.7142857143rem;
+  cursor: pointer;
+}
+.cart-drawer .cart-drawer__content {
+  background-color: #fdfcf8;
+  bottom: 0;
+  padding: 1.4285714286rem;
+  position: sticky;
+  z-index: 2;
+}

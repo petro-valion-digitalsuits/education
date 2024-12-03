@@ -1,0 +1,152 @@
+@import './variables.scss';
+
+.product-item {
+  display: block;
+  height: 100%;
+  text-decoration: none;
+
+  &.product-item--sold-out {
+    picture,
+    img {
+      opacity: .5;
+    }
+  }
+
+
+  picture,
+  img {
+    display: block;
+    height: rem(250);
+    margin: 0 auto;
+    max-width: 100%;
+    object-fit: cover;
+    width: 100%;
+
+    @media screen and (max-width: 768px) {
+      height: rem(220);
+    }
+  }
+
+  .product-item__title,
+  .product-item__description,
+  .product-item__price,
+  .p--old-out {
+    text-align: center;
+  }
+
+  .product-item__title {
+    margin-bottom: 4px;
+  }
+
+  .product-item__description {
+    color: $grey;
+    margin-bottom: rem(14);
+    min-height: rem(36);
+    padding: 0 rem(15);
+    word-break: break-word;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+    @media screen and (max-width: 768px) {
+      margin-bottom: rem(6);
+      padding: 0 rem(18);
+    }
+
+    .product-item__description--desktop {
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    .product-item__description--mobile {
+      display: none;
+
+      @media screen and (max-width: 768px) {
+        display: block;
+      }
+
+      br {
+        @media screen and (max-width: 768px) {
+          display: none;
+        }
+      }
+    }
+
+    .item__description-separator {
+      display: block;
+    }
+  }
+
+  .product-item__price {
+    margin-bottom: rem(14);
+
+    .product-item__price-compare {
+      color: $grey;
+      margin-right: 4px;
+      text-decoration: line-through;
+    }
+  }
+
+  .product-item__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: rem(150);
+
+    @media screen and (max-width: 768px) {
+      min-height: rem(186);
+    }
+  }
+
+  .product-item__reviews {
+    align-items: center;
+    display: flex;
+    margin: 0 auto rem(14);
+    min-height: rem(14);
+    text-align: center;
+    width: max-content;
+
+    .stamped-badge {
+      align-items: center;
+      display: flex;
+
+      &[data-rating='0.0'] {
+        display: none;
+      }
+
+      &::before {
+        order: 2;
+      }
+
+      &::after {
+        background-image: url($review-icon);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        content: '';
+        display: inline-block;
+        height: rem(11);
+        margin-bottom: 1px;
+        margin-right: 4px;
+        order: 1;
+        width: rem(11);
+      }
+
+      .stamped-badge-caption {
+        display: none;
+        margin-left: 4px;
+        order: 3;
+
+        &.initialized {
+          display: inline;
+        }
+      }
+    }
+
+    .stamped-badge-starrating {
+      display: none;
+    }
+  }
+}

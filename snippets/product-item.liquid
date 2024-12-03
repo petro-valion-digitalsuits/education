@@ -1,0 +1,70 @@
+{%- liquid
+  assign product_image = object.featured_image
+  assign product_title = object.title
+  assign product_description = object.description | strip_html
+
+  if image != blank
+    assign product_image = image
+  endif
+
+  if title != blank
+    assign product_title = title
+  endif
+
+  if description != blank
+    assign product_description = description
+  endif
+-%}
+
+<a
+  href="{{- object.url -}}"
+  class="product-item {{ class_item }}{% if object.metafields.custom.sold_out_text != blank %} product-item--sold-out{% endif  %}"
+>
+  {%- if product_image contains '<img' -%}
+    {{- product_image -}}
+  {%- else -%}
+    {%- render 'lazy-img',
+      img: product_image
+      class: 'product-item__image',
+      alt: product_image.alt | default: shop.name
+    -%}
+  {%- endif -%}
+
+  <div class="product-item__content product-content{% if is_hide_save_label %} product-label--save-hidden{% endif %}">
+    <p class="product-item__title">
+      {%- if object.metafields.custom.alternative_title -%}
+        {{- object.metafields.custom.alternative_title -}}
+      {%- else -%}
+        {{- product_title -}}
+      {%- endif -%}
+    </p>
+    <div class="product-item__description">
+      <div class="p--smaller">
+        {{- product_description -}}
+      </div>
+    </div>
+    <div class="p p--smallest{% if object.metafields.custom.sold_out_text != blank or hide_sold_out_text == false %} p--old-out{% else %} product-item__price{% endif %}">
+      {%- if object.metafields.custom.sold_out_text != blank or hide_sold_out_text == false -%}
+        <span>{{ sold_out_text }}{% if sold_out_text != custom_sold_out_text and custom_sold_out_text != blank %} - {{ custom_sold_out_text }}{% endif %}</span>
+      {%- else -%}
+        {%- if object.selected_or_first_available_variant.compare_at_price > object.selected_or_first_available_variant.price -%}
+          <span
+            data-price-compare="{{- object.selected_or_first_available_variant.compare_at_price -}}"
+            class="p p--smallest product-item__price-compare"
+          >
+            {{- object.selected_or_first_available_variant.compare_at_price | money_without_trailing_zeros -}}
+          </span>
+        {%- endif -%}
+
+        <span
+          data-price="{{- object.selected_or_first_available_variant.price -}}"
+          data-id="{{- object.id -}}"
+        >
+          {{- object.selected_or_first_available_variant.price | money_without_trailing_zeros -}}
+        </span>
+      {%- endif -%}
+    </div>
+
+    {%- render 'add-to-cart-button', product: object -%}
+  </div>
+</a>

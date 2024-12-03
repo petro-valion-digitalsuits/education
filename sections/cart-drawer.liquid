@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="{{- 'cart-drawer.css' | asset_url -}}" />
+
+<cart-drawer class="js-content cart-drawer__wrapper" data-section-id="{{- section.id -}}">
+  <div class="cart-drawer__header">
+    <p class="cart-drawer__title h3">
+      Cart -
+      <span class="h3 cart-drawer__cart-size">
+        {{- cart.item_count -}}
+      </span>
+    </p>
+    <p class="cart-drawer__header-button js-close-drawer">Close</p>
+  </div>
+
+  {%- render 'cart-items', items: cart.items -%}
+
+  <div class="cart-drawer__content">
+    <a class="cart-drawer__button button" href="/checkout">
+      Checkout
+      <span class="cart-drawer__total-price">
+        {{ cart.total_price | money_without_trailing_zeros -}}
+      </span>
+    </a>
+  </div>
+</cart-drawer>
+
+<script src="{{- 'cart-drawer.js' | asset_url -}}" defer="defer"></script>
+<script src="{{- 'cart-items.js' | asset_url -}}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "tag": "section",
+  "class": "cart-drawer",
+  "settings": [
+  ],
+  "presets": [
+    {
+      "name": "Cart drawer"
+    }
+  ]
+}
+{% endschema %}

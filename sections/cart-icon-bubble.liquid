@@ -1,0 +1,6 @@
+<span class="header__icon-cart{% if cart.item_count > 0 %} header__icon-cart--active{% endif %}">
+  <span class="header__icon-cart-text p p--descriptor">
+    {{- cart.item_count -}}
+  </span>
+  {%- render 'icons', icon: 'cart' -%}
+</span>

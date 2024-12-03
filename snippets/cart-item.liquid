@@ -1,0 +1,35 @@
+<div class="cart-item">
+  <a class="cart-item__image-wrapper" href="{{- item.url -}}">
+    {%- render 'lazy-img',
+      img: item.image,
+      class: 'cart-item__image',
+      alt: item.title,
+      max_width: 150
+    -%}
+  </a>
+
+  <div class="cart-item__main">
+    <a href="{{- item.url -}}" class="p cart-item__title p--small">
+      {{- item.title -}} - {{- item.final_price | money -}}
+    </a>
+
+    <form
+      class="js-submit-form cart-item__quantity-picker"
+      data-id="{{- item.id -}}"
+    >
+      <p class="js-update-item cart-item__quantity-button" data-quantity="{{- item.quantity | minus: 1 -}}" data-id="{{- item.id -}}">
+        -
+      </p>
+
+      <input type="number" data-id="{{- item.id -}}" class="js-update-item-blur cart-item__quantity-field p--small" name="quantity" min="0" step="1" value="{{- item.quantity -}}"/>
+
+      <p class="js-update-item cart-item__quantity-button" data-quantity="{{- item.quantity | plus: 1 -}}" data-id="{{- item.id -}}">
+        +
+      </p>
+    </form>
+
+    <p data-id="{{- item.id -}}" data-quantity="0" class="cart-item__button-remove js-update-item">
+      Remove
+    </p>
+  </div>
+</div>
