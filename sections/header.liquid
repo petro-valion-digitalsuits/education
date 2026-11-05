@@ -26,11 +26,11 @@
           if s.mobile_logo != blank
             assign desktop_logo_classes = desktop_logo_classes | append: ' header__logo--desktop'
 
-            render 'lazy-img', img: s.mobile_logo, class: 'header__logo header__logo--mobile', lazy: false, alt: s.mobile_logo.alt | default: shop.name
+            render 'lazy-img', img: s.mobile_logo, class: 'header__logo header__logo--mobile', lazy: false, alt: s.mobile_logo.alt, default: shop.name
           endif
 
           if s.logo != blank
-            render 'lazy-img', img: s.logo, class: desktop_logo_classes, lazy: false, alt: s.logo.alt | default: shop.name
+            render 'lazy-img', img: s.logo, class: desktop_logo_classes, lazy: false, alt: s.logo.alt, default: shop.name
           endif
         -%}
       </a>
@@ -102,7 +102,7 @@
                               {%- if menu_image != blank -%}
                                 <li class="header__menu-content">
                                   {%- liquid
-                                    render 'lazy-img', img: menu_image, alt: menu_image.alt | default: shop.name
+                                    render 'lazy-img', img: menu_image, alt: menu_image.alt, default: shop.name
                                   -%}
                                 </li>
                               {%- endif -%}
@@ -327,3 +327,23 @@
     ]
   }
 {%- endschema -%}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "            render 'lazy-img', img: s.mobile_logo, class: 'header__logo header__logo--mobile',
+    lazy: false, alt: s.mobile_logo.alt | default: shop.name"
+  to: "            render 'lazy-img', img: s.mobile_logo, class: 'header__logo header__logo--mobile',
+    lazy: false, alt: s.mobile_logo.alt, default: shop.name"
+  position: 745..895
+- from: "            render 'lazy-img', img: s.logo, class: desktop_logo_classes,
+    lazy: false, alt: s.logo.alt | default: shop.name"
+  to: "            render 'lazy-img', img: s.logo, class: desktop_logo_classes, lazy:
+    false, alt: s.logo.alt, default: shop.name"
+  position: 942..1063
+- from: 'render ''lazy-img'', img: menu_image, alt: menu_image.alt | default: shop.name'
+  to: 'render ''lazy-img'', img: menu_image, alt: menu_image.alt, default: shop.name'
+  position: 4698..4773
+{% endcomment %}

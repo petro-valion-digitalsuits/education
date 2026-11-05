@@ -56,11 +56,7 @@
   {%- if product_image contains '<img' -%}
     {{- product_image -}}
   {%- else -%}
-    {%- render 'lazy-img',
-      img: product_image
-      class: 'product-item__image',
-      alt: product_image.alt | default: shop.name
-    -%}
+    {%- render 'lazy-img', img: product_image, class: 'product-item__image', alt: product_image.alt, default: shop.name -%}
   {%- endif -%}
 
   <div class="product-item__content product-content{% if is_hide_save_label %} product-label--save-hidden{% endif %}">
@@ -143,3 +139,19 @@
     </div>
   </div>
 </a>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {%- render 'lazy-img',
+          img: product_image
+          class: 'product-item__image',
+          alt: product_image.alt | default: shop.name
+        -%}
+  to: "{%- render 'lazy-img', img: product_image, class: 'product-item__image', alt:
+    product_image.alt, default: shop.name -%}"
+  position: 1766..1885
+{% endcomment %}

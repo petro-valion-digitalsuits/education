@@ -59,11 +59,7 @@
         {%- capture form_icos -%}
           {{- form_icos -}}
 
-          {%- render 'lazy-img',
-            img: b.form_icon
-            class: 'footer__form-icon',
-            alt: b.form_icon.alt | default: shop.name
-          -%}
+          {%- render 'lazy-img', img: b.form_icon, class: 'footer__form-icon', alt: b.form_icon.alt, default: shop.name -%}
         {%- endcapture -%}
       {%- endif -%}
 
@@ -105,11 +101,7 @@
         {%- capture copyright_icons -%}
           {{- copyright_icons -}}
 
-          {%- render 'lazy-img',
-            img: b.copyright_icon
-            class: 'footer__copyright-icon',
-            alt: b.copyright_icon.alt | default: shop.name
-          -%}
+          {%- render 'lazy-img', img: b.copyright_icon, class: 'footer__copyright-icon', alt: b.copyright_icon.alt, default: shop.name -%}
         {%- endcapture -%}
       {%- endif -%}
     {%- endfor -%}
@@ -264,3 +256,28 @@
     ]
   }
 {%- endschema -%}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {%- render 'lazy-img',
+                img: b.form_icon
+                class: 'footer__form-icon',
+                alt: b.form_icon.alt | default: shop.name
+              -%}
+  to: "{%- render 'lazy-img', img: b.form_icon, class: 'footer__form-icon', alt: b.form_icon.alt,
+    default: shop.name -%}"
+  position: 2471..2584
+- from: |-
+    {%- render 'lazy-img',
+                img: b.copyright_icon
+                class: 'footer__copyright-icon',
+                alt: b.copyright_icon.alt | default: shop.name
+              -%}
+  to: "{%- render 'lazy-img', img: b.copyright_icon, class: 'footer__copyright-icon',
+    alt: b.copyright_icon.alt, default: shop.name -%}"
+  position: 3995..4123
+{% endcomment %}
